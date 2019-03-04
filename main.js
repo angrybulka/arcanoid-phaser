@@ -7,6 +7,7 @@ var score = 0, lives = 3;
 var textStyle = { font: '18px Arial', fill: '#0095DD' };
 var playing = false;
 var startButton;
+var isPaused = false;
 
 function preload() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -54,6 +55,10 @@ function create() {
 
   startButton = game.add.button(game.world.width * 0.5, game.world.height * 0.5, 'button', startGame, this, 1, 0, 2);
   startButton.anchor.set(0.5);
+
+  var spaceKey = game.input.keyboard.addKey(
+    Phaser.Keyboard.SPACEBAR);
+    spaceKey.onDown.add(isPause, this);
 }
 
 function update() {
@@ -64,6 +69,9 @@ function update() {
   }
 }
 
+function setPause() {
+  game.paused = true;
+}
 function startGame() {
   startButton.destroy();
   ball.body.velocity.set(150, -150);
